@@ -1,29 +1,41 @@
 <?php
+// contact_form.php
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
+    // Get the form data
     $name = htmlspecialchars(trim($_POST['name']));
     $email = htmlspecialchars(trim($_POST['email']));
     $message = htmlspecialchars(trim($_POST['message']));
 
-    // Email details
-    $to = "jaydoghana@jaydoghana.co.ke";  // Updated email address
-    $subject = "New Message from Contact Form";
-    $headers = "From: " . $email . "\r\n" .
-               "Reply-To: " . $email . "\r\n" .
-               "Content-Type: text/plain; charset=UTF-8\r\n";
-
-    // Message content
-    $email_body = "Name: $name\n";
-    $email_body .= "Email: $email\n\n";
-    $email_body .= "Message:\n$message\n";
-
-    // Send email
-    if (mail($to, $subject, $email_body, $headers)) {
-        // Redirect to thank you page or show success message
-        echo "Message successfully sent!";
-    } else {
-        // Display error message
-        echo "Failed to send message. Please try again.";
+    // Validate the email address
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email format";
+        exit;
     }
+
+    // Set the recipient email address
+    $to = "nesterrobert9@gmail.com";
+
+    // Set the email subject
+    $subject = "New Contact Form Submission from: $name";
+
+    // Create the email body
+    $body = "Name: $name\n";
+    $body .= "Email: $email\n\n";
+    $body .= "Message:\n$message\n";
+
+    // Set the headers
+    $headers = "From: $name <$email>" . "\r\n" .
+               "Reply-To: $email" . "\r\n" .
+               "X-Mailer: PHP/" . phpversion();
+
+    // Send the email
+    if (mail($to, $subject, $body, $headers)) {
+        echo "Email sent successfully!";
+    } else {
+        echo "Failed to send email. Please try again later.";
+    }
+} else {
+    echo "Invalid request method.";
 }
 ?>
