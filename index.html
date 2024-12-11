@@ -202,7 +202,7 @@
                     <div class="row">
                         <div class="col-sm-6 col-md-4">
                             <div class="practice-box">
-                                <img class="img-responsive img-full" src="assets/images/Prac-1.jpg">
+                                <img class="img-responsive img-full" src="assets/images/medical.jpg">
                                 <div class="overlay">
                                     <div class="c-table">
                                         <div class="ct-cell">
@@ -215,7 +215,7 @@
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="practice-box">
-                                <img class="img-responsive img-full" src="assets/images/Prac-2.jpg">
+                                <img class="img-responsive img-full" src="assets/images/family.jpg">
                                 <div class="overlay">
                                     <div class="c-table">
                                         <div class="ct-cell">
@@ -228,7 +228,7 @@
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="practice-box">
-                                <img class="img-responsive img-full" src="assets/images/Prac-3.jpg">
+                                <img class="img-responsive img-full" src="assets/images/accident.jpg">
                                 <div class="overlay">
                                     <div class="c-table">
                                         <div class="ct-cell">
@@ -254,7 +254,7 @@
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="practice-box">
-                                <img class="img-responsive img-full" src="assets/images/Prac-5.jpg">
+                                <img class="img-responsive img-full" src="assets/images/gbv.jpg">
                                 <div class="overlay">
                                     <div class="c-table">
                                         <div class="ct-cell">
@@ -267,7 +267,7 @@
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="practice-box">
-                                <img class="img-responsive img-full" src="assets/images/Prac-6.jpg">
+                                <img class="img-responsive img-full" src="assets/images/curr.jpg">
                                 <div class="overlay">
                                     <div class="c-table">
                                         <div class="ct-cell">
@@ -296,36 +296,62 @@
 
                     <div class="row">
                         <form id="consultation-form" class="consultation-form">
-                            <div class="form-group">
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-4">
-                                    <select class="selectpicker" data-live-search="true" data-width="100%">
-                                        <option data-tokens="family">Family Law</option>
-                                        <option data-tokens="business">Business Law</option>
-                                        <option data-tokens="civil litigation">Civil Litigation</option>
-                                        <option data-tokens="other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <textarea class="form-control" rows="8" placeholder="Case Description..." id="case-des" name="case-des"></textarea>
-                                    <!-- <input type="text" class="form-control" id="case-des" placeholder="Case Description..."> -->
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-sm-offset-4">
-                                <button id="cnfsubmit" type="submit" class="btn btn-default btn-block btn-cn">Get Consultation</button>
-                            </div>
-                        </form>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <select class="selectpicker" id="service" name="service" data-live-search="true" data-width="100%">
+                <option data-tokens="family">Family Law</option>
+                <option data-tokens="business">Business Law</option>
+                <option data-tokens="civil litigation">Civil Litigation</option>
+                <option data-tokens="other">Other</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <textarea class="form-control" rows="8" placeholder="Case Description..." id="case-des" name="case-des" required></textarea>
+        </div>
+    </div>
+    <div class="col-sm-4 col-sm-offset-4">
+        <button id="cnfsubmit" type="submit" class="btn btn-default btn-block btn-cn">Get Consultation</button>
+    </div>
+</form>
+
+<script>
+    document.getElementById('consultation-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        
+        // Collect form data
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const service = document.getElementById('service').value;
+        const caseDescription = document.getElementById('case-des').value;
+
+        // Prepare WhatsApp message
+        const whatsappNumber = "+254703251179"; // Change to the desired WhatsApp number
+        const whatsappMessage = `Name: ${name}\nPhone: ${phone}\nService: ${service}\nCase Description: ${caseDescription}`;
+        const encodedMessage = encodeURIComponent(whatsappMessage);
+        
+        // Create WhatsApp link
+        const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+
+        // Open WhatsApp in a new tab/window
+        window.open(whatsappLink, '_blank');
+
+        // Optionally, reset the form after submission
+        this.reset();
+    });
+</script>
+
                     </div>
                 </div>
             </section>
@@ -335,7 +361,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-4 hidden-xs">
-                            <img class="img-responsive img-full mb0" src="assets/images/familly.png" alt="familly">
+                            <img class="img-responsive img-full mb0" src="assets/images/fam2.png" alt="familly">
                         </div>
                         <div class="col-sm-7 col-sm-offset-1">
                             <div id="slider_1" class="owl-carousel">
@@ -389,21 +415,21 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="team-box">
-                                <img class="img-responsive img-full" src="assets/images/team-1.jpg" alt="team">
+                                <img class="img-responsive img-full" src="assets/images/1.jpeg" alt="team">
                                 <div class="team-detail">
                                     <ul>
-                                        <li><h3>Jewel Jahan</h3></li>
+                                        <li><h3>Emelda Doghana</h3></li>
                                         <li><h4>Counsel</h4></li>
-                                        <li>Family Law</li>
-                                        <li>Commercial Lending,</li>
-                                        <li>Real Estate</li>
+                                        <li>Banking Law</li>
+                                        <li>CEmelda specializes in banking and recoveries, real estate and conveyancing, and securities.</li>
+                                       
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="team-box">
-                                <img class="img-responsive img-full" src="assets/images/team-2.jpg" alt="team">
+                                <img class="img-responsive img-full" src="assets/images/3.jpeg" alt="team">
                                 <div class="team-detail">
                                     <ul>
                                         <li><h3>Rub Elvi</h3></li>
@@ -417,7 +443,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="team-box">
-                                <img class="img-responsive img-full" src="assets/images/team-3.jpg" alt="team">
+                                <img class="img-responsive img-full" src="assets/images/5.jpeg" alt="team">
                                 <div class="team-detail">
                                     <ul>
                                         <li><h3>K. Survy</h3></li>
@@ -494,7 +520,7 @@
                                 <div class="item">
                                     <div class="row">
                                         <div class="col-sm-5">
-                                            <img class="img-responsive img-full" src="assets/images/testimonial-1.jpg" alt="testimonial">
+                                            <img class="img-responsive img-full" src="assets/images/4.jpeg" alt="testimonial">
                                         </div>
                                         <div class="col-sm-7">
                                             <p>
@@ -507,7 +533,7 @@
                                 <div class="item">
                                     <div class="row">
                                         <div class="col-sm-5">
-                                            <img class="img-responsive img-full" src="assets/images/testimonial-2.jpg" alt="testimonial">
+                                            <img class="img-responsive img-full" src="assets/images/5.jpeg" alt="testimonial">
                                         </div>
                                         <div class="col-sm-7">
                                             <p>
@@ -520,7 +546,7 @@
                                 <div class="item">
                                     <div class="row">
                                         <div class="col-sm-5">
-                                            <img class="img-responsive img-full" src="assets/images/testimonial-3.jpg" alt="testimonial">
+                                            <img class="img-responsive img-full" src="assets/images/6.jpeg" alt="testimonial">
                                         </div>
                                         <div class="col-sm-7">
                                             <p>
@@ -629,7 +655,7 @@
                         <div class="col-sm-6">
                             <img src="assets/images/logo.png" alt="logo" class="contact-logo">
                             <p>
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6453.916498476793!2d36.80581512154518!3d-1.2926327904605541!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10c3389a4c61%3A0xc963fc47884fae73!2sHill%20Plaza%2C%20Upper%20Hill%20Rd%2C%20Nairobi!5e1!3m2!1sen!2ske!4v1726671687390!5m2!1sen!2ske" width="250" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                
                             </p>
                             <ul>
                                 <li><span class="ion-location"></span>Hill Plaza Building, Ground Floor, Left Wing Room 1, Upper Hill Close, Opposite Milimani Law Courts, P.O. Box 8452-00100, Nairobi
@@ -639,29 +665,55 @@
                             </ul>
                         </div>
                         <div class="col-sm-6">
-                            <form id="contactForm" action="php/contact_form.php" method="post">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-person"></i>
-                                    </span>
-                                    <input class="form-control" type="text" placeholder="Name" name="name" required>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-email"></i>
-                                    </span>
-                                    <input class="form-control" name="email" type="email" placeholder="Email address" required>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon custom-addon">
-                                        <i class="ion-chatbubbles"></i>
-                                    </span>
-                                    <textarea class="form-control" rows="8" placeholder="Write Message" name="message"></textarea>
-                                </div>
-                                <button id="cfsubmit" type="submit" class="btn btn-default btn-block">
-                                    Send your Message <span class="ion-paper-airplane"></span>
-                                </button>
-                            </form>
+                           <form id="contactForm">
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="ion-person"></i>
+        </span>
+        <input class="form-control" type="text" placeholder="Name" name="name" required>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="ion-email"></i>
+        </span>
+        <input class="form-control" name="email" type="email" placeholder="Email address" required>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon custom-addon">
+            <i class="ion-chatbubbles"></i>
+        </span>
+        <textarea class="form-control" rows="8" placeholder="Write Message" name="message" required></textarea>
+    </div>
+    <button id="cfsubmit" type="submit" class="btn btn-default btn-block">
+        Send your Message <span class="ion-paper-airplane"></span>
+    </button>
+</form>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        
+        // Collect form data
+        const name = this.name.value;
+        const email = this.email.value;
+        const message = this.message.value;
+
+        // Prepare WhatsApp message
+        const whatsappNumber = "+254703251179";
+        const whatsappMessage = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
+        const encodedMessage = encodeURIComponent(whatsappMessage);
+        
+        // Create WhatsApp link
+        const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+
+        // Open WhatsApp in a new tab/window
+        window.open(whatsappLink, '_blank');
+
+        // Optionally, reset the form after submission
+        this.reset();
+    });
+</script>
+
                             
 
                             <div id="contactFormResponse"></div>
